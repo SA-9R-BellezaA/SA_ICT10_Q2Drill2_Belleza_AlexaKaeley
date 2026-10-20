@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.3.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.3.1/core.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <title>2nd Quarter | Drill 2</title>
+    <style>
+        /* Krusty Krab is a ship, so  i thought that each photo slot is shoyld be a round porthole. the circle i included crops
+           any picture to the same shape so the patty and SpongeBob looks uniform. */
+        :root {
+            --sea: #0b3c5d;
+            --foam: #e8f4f8;
+            --brass: #d9a441;
+            --rust: #b5432a;
+        }
+        body { background: var(--foam); font-family: "Nunito", sans-serif; color: var(--sea); }
+        h3{ font-family: "Bowlby One", sans-serif; }
+
+        .porthole {
+            width: 180px;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            border: 10px solid var(--brass);
+            background: #bcd9e6;
+            box-shadow: 0 0 0 4px var(--rust), inset 0 0 0 3px var(--sea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            font-size: 0.8rem;
+        }
+        /* object-fit: cover makes the picture fill the whole circle without squishing it, so spongeBob and the patty never look stretched or bad. */
+        .porthole img { width: 100%; height: 100%; object-fit: cover; }
+        .feature { text-align: center; }
+        .badge-label {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.4rem 1rem;
+            background: var(--rust);
+            color: #fff;
+            border-radius: 2rem;
+            font-weight: 700;
+        }
+        .feature .porthole { margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <h3 class="mb-4">Check a Krusty Krab customer:</h3>
+        <form class="mb-4">
+            <div class="mb-3">
+                <input type="text" id="first_name" class="form-control" placeholder="Enter the first name">
+            </div>
+            <div class="mb-3">
+                <input type="text" id="last_name" class="form-control" placeholder="Enter the last name">
+            </div>
+            <input type="button" value="Submit" py-click="result_checker" class="btn btn-primary">
+        </form>
+        <div id="output" class="p-3 rounded mb-5" style="background-color: crimson; color: chartreuse; font-size: 20px;"></div>
+
+        <!-- The two pictures sit below the result so they work as a "today at the Krusty Krab" highlight without crowding the form.-->
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-sm-6 feature">
+                <div class="porthole"><img src="patty.webp" alt="Krabby Patty"></div>
+                <span class="badge-label">Best seller: Krabby Patty</span>
+            </div>
+            <div class="col-12 col-sm-6 feature">
+                <div class="porthole"><img src="spongee.webp" alt="SpongeBob SquarePants"></div>
+                <span class="badge-label">Employee of the month: SpongeBob</span>
+            </div>
+        </div>
+    </div>
+
+    <py-script src="main.py"></py-script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
