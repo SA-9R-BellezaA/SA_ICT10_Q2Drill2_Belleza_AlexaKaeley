@@ -1,48 +1,36 @@
 from pyscript import document
 
-# Krusty Krab customers, I wanted to do one of my favorite cartoons for this, so I decided to do a spongebob themed drill 2.
-customers = [
-    {"first": "Patrick", "last": "Star", "order": "Krabby Patty with extra Krabby Patties"},
-    {"first": "Sandy", "last": "Cheeks", "order": "Krabby Patty only, no buns"},
-    {"first": "Mrs.", "last": "Puff", "order": "Krabby Patty and a large Kelp Shake"},
-    {"first": "Larry", "last": "Lobster", "order": "Double Krabby Patty with Coral Bits"},
-    {"first": "Squilliam", "last": "Fancyson", "order": "Deluxe Krabby Patty, NO grease"},
-    {"first": "Bubble", "last": "Bass", "order": "Triple Krabby Patty with extra pickles"},
-    {"first": "Mermaid", "last": "Man", "order": "Krabby Patty and Salad"},
-    {"first": "Barnacle", "last": "Boy", "order": "Krabby Patty"},
-    {"first": "Sheldon", "last": "Plankton", "order": "The Secret Formula"},
-    {"first": "Old Man", "last": "Jenkins", "order": "Krabby Patty"},
-]
+# I really like spongebob, so I decided to do a spongebob themed drill 2
+krusty_regulars = {"Patrick Star", "Sandy Cheeks", "Mrs. Puff", "Larry Lobster"}
+fancy_diners = {"Squilliam Fancyson", "Bubble Bass", "Larry Lobster"}
+bikini_bottom_heroes = {"Mermaid Man", "Barnacle Boy", "Sandy Cheeks"}
+sneaky_visitors = {"Sheldon Plankton", "Old Man Jenkins", "Bubble Bass"}
 
 
-def find_customer(first_name, last_name):
-    """Return the customer dict if the name matches, otherwise None."""
-    for customer in customers:
-        if (customer["first"].lower() == first_name.lower()
-                and customer["last"].lower() == last_name.lower()):
-            return customer
-    return None
+master_set = krusty_regulars | fancy_diners | bikini_bottom_heroes | sneaky_visitors
+
+
+def show_results():
+    members = "<br>".join(sorted(master_set))
+    document.querySelector("#output").innerHTML = (
+        f"<strong>All members:</strong><br>{members}<br><br>"
+        f"<strong>Total number of members:</strong> {len(master_set)}"
+    )
 
 
 def result_checker(event):
+    global master_set
     first_name = document.querySelector("#first_name").value.strip()
     last_name = document.querySelector("#last_name").value.strip()
-    output = document.querySelector("#output")
 
-    if not first_name or not last_name:
-        output.innerText = "Please enter both a first name and a last name!"
-        return
+  
+    new_member = {f"{first_name} {last_name}".strip().title()} - {""}
+    
 
-    customer = find_customer(first_name, last_name)
+   # Master set holds every member in one place, and it is a set so no name can appear twice.
+    master_set = master_set | new_member
 
-    if customer:
-        output.innerText = (
-            f"Welcome to the Krusty Krab, {customer['first']} {customer['last']}! "
-            f"Your usual: {customer['order']}."
-        )
-    else:
-        names = ", ".join(f"{c['first']} {c['last']}" for c in customers)
-        output.innerText = (
-            f"Sorry, {first_name} {last_name} isn't a Krusty Krab customer. "
-            f"Regulars: {names}."
-        )
+    show_results()
+
+
+show_results()
